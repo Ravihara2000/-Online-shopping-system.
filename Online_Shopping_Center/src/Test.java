@@ -9,6 +9,8 @@ public class Test {
         manager.addProduct(e2);
         manager.addProduct(c1);
         manager.addProduct(c2);
-        manager.printProduct();
+        //manager.printProduct();
+        //manager.deleteProduct("w11");
+        //manager.printProduct();
     }
 }

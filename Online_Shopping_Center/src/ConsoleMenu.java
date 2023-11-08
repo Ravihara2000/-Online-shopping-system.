@@ -20,7 +20,7 @@ public class ConsoleMenu {
                     addProduct();
                     break;
                 case 2:
-                    //deleteDoctor();
+                    deleteProduct();
                     break;
                 case 3:
                     manager.printProduct();
@@ -119,6 +119,20 @@ public class ConsoleMenu {
 
         }catch (Exception e){
             System.out.println(e);
+        }
+    }
+
+    public static void deleteProduct(){
+        System.out.println("what do you want to delete?");
+        System.out.println("1.Electronics\n 2.Clothing");
+        //Scanner sc = new Scanner(System.in);
+        int x= scn.nextInt();
+
+        if(x==1){
+            System.out.println("Enter product Id");
+            String pId = scn.next();
+
+            manager.deleteProduct(pId);
         }
     }
 

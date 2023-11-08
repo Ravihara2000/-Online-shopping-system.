@@ -74,4 +74,30 @@ public class WestminsterShoppingManager implements ShoppingManager {
         }
     }
 
+    public void deleteProduct(String productId){
+
+        boolean found = false;
+        for(Electronics electronics:electList){
+            if (electronics.getProductId()==(productId)){
+                found=true;
+                getElectList().remove(electronics);
+                System.out.printf("\nremoved electronic item");
+                //System.out.println("free slots remaining "+freeSlots);
+                break;
+            }
+        }
+        for(Clothing clothing : getClothList()){
+            if (clothing.getProductId()==(productId)){
+                found=true;
+                getClothList().remove(clothing);
+                System.out.printf("\nremoved clothing item");
+                //System.out.println("free slots remaining "+freeSlots);
+                break;
+            }
+        }
+        if(!found) {
+            System.out.println("\nInvalid product id");
+        }
+    }
+
 }
