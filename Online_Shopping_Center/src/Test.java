@@ -12,5 +12,6 @@ public class Test {
         //manager.printProduct();
         //manager.deleteProduct("w11");
         //manager.printProduct();
+        manager.saveDataToFile("shopping_data.txt");
     }
 }

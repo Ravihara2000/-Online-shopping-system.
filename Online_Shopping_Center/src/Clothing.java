@@ -7,6 +7,14 @@ public class Clothing extends Products{
         this.color = color;
     }
 
+    @Override
+    public String toString() {
+        return "Clothing{" +
+                "size='" + size + '\'' +
+                ", color='" + color + '\'' +
+                '}';
+    }
+
     public String getSize() {
         return size;
     }

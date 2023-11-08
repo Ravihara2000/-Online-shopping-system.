@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -14,6 +17,29 @@ public class WestminsterShoppingManager implements ShoppingManager {
 
     public ArrayList<Clothing> getClothList() {
         return clothList;
+    }
+    public void saveDataToFile(String filename) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            // Save Electronics data
+            writer.write("Electronics Data:");
+            writer.newLine();
+            for (Electronics electronics : electList) {
+                writer.write(electronics.toString()); // You should implement a toString method in Electronics
+                writer.newLine();
+            }
+
+            // Save Clothing data
+            writer.write("Clothing Data:");
+            writer.newLine();
+            for (Clothing clothing : clothList) {
+                writer.write(clothing.toString()); // You should implement a toString method in Clothing
+                writer.newLine();
+            }
+
+            System.out.println("Data saved to " + filename);
+        } catch (IOException e) {
+            System.err.println("Error while saving data to file: " + e.getMessage());
+        }
     }
 
 

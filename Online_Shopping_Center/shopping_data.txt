@@ -1,0 +1,6 @@
+Electronics Data:
+Electronics{brand='apple', warrantyPeriod=20}
+Electronics{brand='samsung', warrantyPeriod=20}
+Clothing Data:
+Clothing{size='small', color='black'}
+Clothing{size='xl', color='yellow'}

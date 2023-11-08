@@ -19,6 +19,14 @@ public class Electronics extends Products{
         return warrantyPeriod;
     }
 
+    @Override
+    public String toString() {
+        return "Electronics{" +
+                "brand='" + brand + '\'' +
+                ", warrantyPeriod=" + warrantyPeriod +
+                '}';
+    }
+
     public void setWarrantyPeriod(int warrantyPeriod) {
         this.warrantyPeriod = warrantyPeriod;
     }
