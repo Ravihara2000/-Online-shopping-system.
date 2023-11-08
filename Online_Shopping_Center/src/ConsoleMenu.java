@@ -23,7 +23,7 @@ public class ConsoleMenu {
                     //deleteDoctor();
                     break;
                 case 3:
-                    //manager.printDoctorList();
+                    manager.printProduct();
                     break;
                 case 4:
                     //manager.printStatistics();
