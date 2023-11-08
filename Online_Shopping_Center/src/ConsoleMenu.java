@@ -3,6 +3,9 @@ import java.util.Scanner;
 
 public class ConsoleMenu {
 
+    private WestminsterShoppingManager shoppingManager;
+
+    static ShoppingManager manager = new WestminsterShoppingManager();
     final static Scanner scn =new Scanner(System.in);
     //static SkinConsultationManager manager = new WestminsterSkinConsultationManager();
     public static void main(String[] args) throws IOException, ClassNotFoundException {
@@ -54,9 +57,8 @@ public class ConsoleMenu {
         System.out.println("7: Quite application");
     }
 
-    private static void addProduct(){
-        Clothing clothing;
-        Electronics electronics;
+    public static void addProduct(){
+
         try{
         System.out.println("what do you want to add?");
         System.out.println("1.Electronics\n 2.Clothing");
@@ -84,6 +86,10 @@ public class ConsoleMenu {
             System.out.println("Enter product warranty period");
             int pWarranty = scn.nextInt();
 
+             Electronics electronics = new Electronics(pId,pName,pAmount,pPrice,pBrand,pWarranty);
+
+            manager.addProduct(electronics);
+
         } else if (x==2) {
 
                 System.out.println("Enter product ID");
@@ -103,9 +109,13 @@ public class ConsoleMenu {
                 System.out.println("Enter product color");
                 String pColor = scn.next();
 
+                Clothing clothing = new Clothing(pId,pName,pAmount,pPrice,pSize,pColor);
+                manager.addProduct(clothing);
+
         }else {
             System.out.println("Invalid input");
         }
+
 
         }catch (Exception e){
             System.out.println(e);
