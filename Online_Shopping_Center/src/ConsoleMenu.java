@@ -14,7 +14,7 @@ public class ConsoleMenu {
 
             switch (choice){
                 case 1:
-                    //addDoctor();
+                    addProduct();
                     break;
                 case 2:
                     //deleteDoctor();
@@ -52,6 +52,64 @@ public class ConsoleMenu {
         System.out.println("5: Load Data");
         System.out.println("6: Display GUI");
         System.out.println("7: Quite application");
+    }
+
+    private static void addProduct(){
+        Clothing clothing;
+        Electronics electronics;
+        try{
+        System.out.println("what do you want to add?");
+        System.out.println("1.Electronics\n 2.Clothing");
+        //Scanner sc = new Scanner(System.in);
+        int x= scn.nextInt();
+            if(x==1){
+
+
+            System.out.println("Enter product ID");
+            String pId = scn.next();
+
+            System.out.println("Enter product Name");
+            String pName = scn.next();
+
+            System.out.println("Enter number of products");
+            int pAmount = scn.nextInt();
+
+            System.out.println("Enter product price");
+            int pPrice = scn.nextInt();
+
+
+            System.out.println("Enter product brand");
+            String pBrand = scn.next();
+
+            System.out.println("Enter product warranty period");
+            int pWarranty = scn.nextInt();
+
+        } else if (x==2) {
+
+                System.out.println("Enter product ID");
+                String pId = scn.next();
+
+                System.out.println("Enter product Name");
+                String pName = scn.next();
+
+                System.out.println("Enter number of products");
+                int pAmount = scn.nextInt();
+
+                System.out.println("Enter product price");
+                int pPrice = scn.nextInt();
+                System.out.println("Enter product Size");
+                String pSize = scn.next();
+
+                System.out.println("Enter product color");
+                String pColor = scn.next();
+
+        }else {
+            System.out.println("Invalid input");
+        }
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
 
