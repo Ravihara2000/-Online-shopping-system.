@@ -27,12 +27,12 @@ public class ConsoleMenu {
                     break;
                 case 4:
                     //manager.printStatistics();
-                    //manager.saveData();
+                    manager.saveDataToFile("shopping_data.txt");
 
-                    System.out.println("data saved successfully");
+                    //System.out.println("data saved successfully");
                     break;
                 case 5:
-                    //manager.loadData();
+                    manager.loadDataFromFile("shopping_data.txt");
                     break;
                 case 6:
                     //SkinConsultGUI g1 = new SkinConsultGUI((WestminsterSkinConsultationManager) manager);

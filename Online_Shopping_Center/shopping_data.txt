@@ -1,6 +1,6 @@
 Electronics Data:
-Electronics{brand='apple', warrantyPeriod=20}
-Electronics{brand='samsung', warrantyPeriod=20}
+Electronics{Products{productId='w1', productName='phone', numOfItems=10, price=100}brand='apple', warrantyPeriod=20}
+Electronics{Products{productId='w2', productName='tab', numOfItems=15, price=100}brand='samsung', warrantyPeriod=20}
 Clothing Data:
-Clothing{size='small', color='black'}
-Clothing{size='xl', color='yellow'}
+Clothing{Products{productId='q1', productName='shirt', numOfItems=5, price=30}size='small', color='black'}
+Clothing{Products{productId='q2', productName='short', numOfItems=15, price=34}size='xl', color='yellow'}

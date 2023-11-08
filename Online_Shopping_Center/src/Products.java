@@ -4,6 +4,16 @@ public abstract class Products {
     private int numOfItems;
     private int price;
 
+    @Override
+    public String toString() {
+        return "Products{" +
+                "productId='" + productId + '\'' +
+                ", productName='" + productName + '\'' +
+                ", numOfItems=" + numOfItems +
+                ", price=" + price +
+                '}';
+    }
+
     public String getProductId() {
         return productId;
     }

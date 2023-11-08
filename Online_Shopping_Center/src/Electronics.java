@@ -21,7 +21,7 @@ public class Electronics extends Products{
 
     @Override
     public String toString() {
-        return "Electronics{" +
+        return "Electronics{"+super.toString() +
                 "brand='" + brand + '\'' +
                 ", warrantyPeriod=" + warrantyPeriod +
                 '}';
@@ -36,4 +36,16 @@ public class Electronics extends Products{
         this.brand = brand;
         this.warrantyPeriod = warrantyPeriod;
     }
+    public static Electronics fromString(String data) {
+        String[] parts = data.split(",");
+        if (parts.length != 2) {
+            return null; // Invalid data
+        }
+
+        String brand = parts[0].substring(parts[0].indexOf('=') + 1).trim();
+        int warrantyPeriod = Integer.parseInt(parts[1].substring(parts[1].indexOf('=') + 1).replace("}", "").trim());
+
+        return new Electronics(brand, warrantyPeriod);
+    }
+
 }

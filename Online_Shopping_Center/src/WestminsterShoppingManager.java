@@ -1,6 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -41,6 +39,39 @@ public class WestminsterShoppingManager implements ShoppingManager {
             System.err.println("Error while saving data to file: " + e.getMessage());
         }
     }
+
+    public void loadDataFromFile(String filename) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            String currentCategory = null;
+
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("Electronics Data:")) {
+                    currentCategory = "Electronics";
+                } else if (line.startsWith("Clothing Data:")) {
+                    currentCategory = "Clothing";
+                } else if (currentCategory != null) {
+                    // Parse and create objects based on the category
+                    if (currentCategory.equals("Electronics")) {
+                        Electronics electronics = Electronics.fromString(line);
+                        if (electronics != null) {
+                            electList.add(electronics);
+                        }
+                    } else if (currentCategory.equals("Clothing")) {
+                        Clothing clothing = Clothing.fromString(line);
+                        if (clothing != null) {
+                            clothList.add(clothing);
+                        }
+                    }
+                }
+            }
+
+            System.out.println("Data loaded from " + filename);
+        } catch (IOException e) {
+            System.err.println("Error while loading data from file: " + e.getMessage());
+        }
+    }
+
 
 
     public void addProduct(Products products) {

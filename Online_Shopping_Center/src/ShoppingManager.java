@@ -9,4 +9,5 @@ public interface ShoppingManager {
     //void saveDataToFile() ;
 
     void saveDataToFile(String s);
+    void loadDataFromFile(String f);
 }
