@@ -29,21 +29,21 @@ public class Clothing extends Products{
                 '}';
     }
 
+
     public String getSize() {
         return size;
     }
-
-    public void setSize(String size) {
-        this.size = size;
+    public String getCategory() {
+        return "Clothing";
+    }
+    public Clothing getInfo() {
+        return new Clothing(size,color);
     }
 
     public String getColor() {
         return color;
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
 
     public Clothing(String productId, String productName, int numOfItems, int price, String size, String color) {
         super(productId, productName, numOfItems, price);

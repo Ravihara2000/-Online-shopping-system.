@@ -47,5 +47,11 @@ public class Electronics extends Products{
 
         return new Electronics(brand, warrantyPeriod);
     }
+    public String getCategory() {
+        return "Electronics";
+    }
+    public Electronics getInfo() {
+        return new Electronics(brand,warrantyPeriod);
+    }
 
 }
