@@ -1,9 +1,12 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ShoppingGUI extends JFrame {
+    private DefaultTableModel tableModel;
     public ShoppingGUI(WestminsterShoppingManager manager) {
         JFrame f1 = new JFrame();
         f1.setSize(1000, 700);
@@ -25,6 +28,14 @@ public class ShoppingGUI extends JFrame {
 
         // Create a JComboBox with the array of items
         JComboBox<String> dropdown = new JComboBox<>(items);
+        // Add an ActionListener to the JComboBox
+        dropdown.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedCategory = dropdown.getSelectedItem().toString();
+                updateTable(selectedCategory, tableModel, manager);
+            }
+        });
 
         // Create a JLabel with the desired text
         JLabel label = new JLabel("Select product category:");
@@ -44,8 +55,10 @@ public class ShoppingGUI extends JFrame {
 
 
         String[] columnNames = {"Product ID", "Name", "Category", "Price", "Info"};
-        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+// Remove the DefaultTableModel type declaration before tableModel
+        tableModel = new DefaultTableModel(columnNames, 0);
         JTable productListTable = new JTable(tableModel);
+
 
 
         // Populate the table with data from the ArrayList
@@ -64,6 +77,39 @@ public class ShoppingGUI extends JFrame {
         pane.setPreferredSize(new Dimension(300, 150));
         f1.add("South",pane);
 
+
+
         f1.setVisible(true);
+    }
+    // Method to update the table based on the selected category
+    private void updateTable(String selectedCategory, DefaultTableModel tableModel, WestminsterShoppingManager manager) {
+        // Check if tableModel is null, and initialize it if needed
+        if (tableModel == null) {
+            String[] columnNames = {"Product ID", "Name", "Category", "Price", "Info"};
+            tableModel = new DefaultTableModel(columnNames, 0);
+        }
+        // Clear the table
+        tableModel.setRowCount(0);
+
+        // Populate the table with data based on the selected category
+        if (selectedCategory.equals("All")) {
+            populateTable(manager.getClothList(), manager.getElectList(), tableModel);
+        } else if (selectedCategory.equals("Clothes")) {
+            populateTable(manager.getClothList(), new ArrayList<>(), tableModel);
+        } else if (selectedCategory.equals("Electronics")) {
+            populateTable(new ArrayList<>(), manager.getElectList(), tableModel);
+        }
+    }
+
+    // Method to populate the table with data from the ArrayLists
+    private void populateTable(ArrayList<Clothing> clothList, ArrayList<Electronics> electList, DefaultTableModel tableModel) {
+        for (Clothing clothing : clothList) {
+            Object[] rowData = {clothing.getProductId(), clothing.getProductName(), clothing.getCategory(), clothing.getPrice(), clothing.getInfo()};
+            tableModel.addRow(rowData);
+        }
+        for (Electronics electronics : electList) {
+            Object[] rowData = {electronics.getProductId(), electronics.getProductName(), electronics.getCategory(), electronics.getPrice(), electronics.getInfo()};
+            tableModel.addRow(rowData);
+        }
     }
 }
