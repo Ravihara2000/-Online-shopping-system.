@@ -26,6 +26,9 @@ public class Electronics extends Products{
                 ", warrantyPeriod=" + warrantyPeriod +
                 '}';
     }
+    public String toStringGui() {
+        return brand + ',' + warrantyPeriod;
+    }
 
     public void setWarrantyPeriod(int warrantyPeriod) {
         this.warrantyPeriod = warrantyPeriod;
@@ -50,8 +53,8 @@ public class Electronics extends Products{
     public String getCategory() {
         return "Electronics";
     }
-    public Electronics getInfo() {
-        return new Electronics(brand,warrantyPeriod);
+    public String getInfo() {
+        return toStringGui();
     }
 
 }

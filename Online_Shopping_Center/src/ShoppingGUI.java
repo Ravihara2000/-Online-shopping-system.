@@ -46,7 +46,7 @@ public class ShoppingGUI extends JFrame {
         String[] columnNames = {"Product ID", "Name", "Category", "Price", "Info"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         JTable productListTable = new JTable(tableModel);
-        
+
 
         // Populate the table with data from the ArrayList
         ArrayList<Clothing> clothList = manager.getClothList();

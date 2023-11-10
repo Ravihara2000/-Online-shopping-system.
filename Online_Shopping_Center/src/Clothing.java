@@ -29,6 +29,9 @@ public class Clothing extends Products{
                 '}';
     }
 
+    public String toStringGui() {
+        return size + ',' +color;
+    }
 
     public String getSize() {
         return size;
@@ -36,8 +39,8 @@ public class Clothing extends Products{
     public String getCategory() {
         return "Clothing";
     }
-    public Clothing getInfo() {
-        return new Clothing(size,color);
+    public String getInfo() {
+        return toStringGui();
     }
 
     public String getColor() {
