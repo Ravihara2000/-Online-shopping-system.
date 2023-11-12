@@ -4,12 +4,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class ShoppingGUI extends JFrame {
     private DefaultTableModel tableModel;
     public ShoppingGUI(WestminsterShoppingManager manager) {
         JFrame f1 = new JFrame();
-        f1.setSize(1000, 700);
+        f1.setSize(700, 400);
         f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f1.setLayout(new BorderLayout());
         f1.setTitle("Westminster Shopping Center");
@@ -40,6 +41,17 @@ public class ShoppingGUI extends JFrame {
         // Create a JLabel with the desired text
         JLabel label = new JLabel("Select product category:");
         label.setFont(new Font("Calibre", Font.PLAIN, 16));
+
+        JButton sortBtn = new JButton("Sort List");
+        sortBtn.setBounds(130,50,50,50);
+        panel.add(sortBtn);
+
+        sortBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sortTable();
+            }
+        });
 
         JButton cartBtn = new JButton("Shopping Cart");
         cartBtn.setBounds(130,50,50,50);
@@ -80,6 +92,26 @@ public class ShoppingGUI extends JFrame {
 
 
         f1.setVisible(true);
+    }
+
+    // Method to sort the table alphabetically based on product name
+    private void sortTable() {
+        ArrayList<Object[]> data = new ArrayList<>();
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            Object[] rowData = new Object[tableModel.getColumnCount()];
+            for (int j = 0; j < tableModel.getColumnCount(); j++) {
+                rowData[j] = tableModel.getValueAt(i, j);
+            }
+            data.add(rowData);
+        }
+
+        data.sort(Comparator.comparing(o -> o[1].toString())); // Sorting based on product name
+
+        tableModel.setRowCount(0); // Clear the table
+
+        for (Object[] rowData : data) {
+            tableModel.addRow(rowData);
+        }
     }
     // Method to update the table based on the selected category
     private void updateTable(String selectedCategory, DefaultTableModel tableModel, WestminsterShoppingManager manager) {
