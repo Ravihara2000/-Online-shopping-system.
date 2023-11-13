@@ -16,5 +16,6 @@ public class Test {
 /*        manager.loadDataFromFile("shopping_data.txt");
         manager.printProduct();*/
         ShoppingGUI g1 = new ShoppingGUI((WestminsterShoppingManager) manager);
+        ShoppingGUI g2 = new ShoppingGUI((WestminsterShoppingManager) manager);
     }
 }
