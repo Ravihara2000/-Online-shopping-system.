@@ -35,7 +35,7 @@ public class ConsoleMenu {
                     manager.loadDataFromFile("shopping_data.txt");
                     break;
                 case 6:
-                    ShoppingGUI g1 = new ShoppingGUI((WestminsterShoppingManager) manager);
+                    //ShoppingGUI g1 = new ShoppingGUI((WestminsterShoppingManager) manager);
                     break;
                 case 7:
                     System.out.println("Thank you for using the system");
