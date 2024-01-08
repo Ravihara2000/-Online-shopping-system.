@@ -97,6 +97,10 @@ public class ShoppingGUI extends JFrame {
             }
         });
 
+        JButton addItemBtn = new JButton("Add to Cart");
+        cartBtn.setBounds(130,70,50,50);
+        f1.add(cartBtn);
+
 
         // Populate the table with data from the ArrayList
         ArrayList<Clothing> clothList = manager.getClothList();

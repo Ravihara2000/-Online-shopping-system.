@@ -17,6 +17,8 @@ public class ConsoleMenu {
 
             switch (choice){
                 case 1:
+                    //addProduct(pId, pName, pAmount, pPrice, pBrand, pWarranty, pSize, pColor);
+
                     addProduct();
                     break;
                 case 2:
@@ -61,10 +63,10 @@ public class ConsoleMenu {
 
         try{
         System.out.println("what do you want to add?");
-        System.out.println("1.Electronics\n 2.Clothing");
+        System.out.println("1.Electronics\n2.Clothing");
         //Scanner sc = new Scanner(System.in);
         int x= scn.nextInt();
-            if(x==1){
+
 
 
             System.out.println("Enter product ID");
@@ -79,12 +81,13 @@ public class ConsoleMenu {
             System.out.println("Enter product price");
             int pPrice = scn.nextInt();
 
+            if(x==1){
 
             System.out.println("Enter product brand");
-            String pBrand = scn.next();
+                String pBrand = scn.next();
 
             System.out.println("Enter product warranty period");
-            int pWarranty = scn.nextInt();
+           int pWarranty = scn.nextInt();
 
              Electronics electronics = new Electronics(pId,pName,pAmount,pPrice,pBrand,pWarranty);
 
@@ -92,17 +95,6 @@ public class ConsoleMenu {
 
         } else if (x==2) {
 
-                System.out.println("Enter product ID");
-                String pId = scn.next();
-
-                System.out.println("Enter product Name");
-                String pName = scn.next();
-
-                System.out.println("Enter number of products");
-                int pAmount = scn.nextInt();
-
-                System.out.println("Enter product price");
-                int pPrice = scn.nextInt();
                 System.out.println("Enter product Size");
                 String pSize = scn.next();
 
@@ -124,7 +116,7 @@ public class ConsoleMenu {
 
     public static void deleteProduct(){
         System.out.println("what do you want to delete?");
-        System.out.println("1.Electronics\n 2.Clothing");
+        System.out.println("1.Electronics\n2.Clothing");
         //Scanner sc = new Scanner(System.in);
         int x= scn.nextInt();
 
@@ -133,6 +125,13 @@ public class ConsoleMenu {
             String pId = scn.next();
 
             manager.deleteProduct(pId);
+        } else if (x==2) {
+            System.out.println("Enter product Id");
+            String pId = scn.next();
+
+            manager.deleteProduct(pId);
+        }else {
+            System.out.println("Invalid Input");
         }
     }
 

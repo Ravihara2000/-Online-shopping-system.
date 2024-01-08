@@ -1,8 +1,5 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 public class WestminsterShoppingManager implements ShoppingManager {
     public final static int maxProducts=50;
@@ -131,30 +128,37 @@ public class WestminsterShoppingManager implements ShoppingManager {
         }
     }
 
-    public void deleteProduct(String productId){
-
+    public void deleteProduct(String productId) {
         boolean found = false;
-        for(Electronics electronics:electList){
-            if (electronics.getProductId()==(productId)){
-                found=true;
-                getElectList().remove(electronics);
-                System.out.printf("\nremoved electronic item");
-                //System.out.println("free slots remaining "+freeSlots);
+
+        // Using Iterator for safe removal
+        Iterator<Electronics> electronicsIterator = electList.iterator();
+        while (electronicsIterator.hasNext()) {
+            Electronics electronics = electronicsIterator.next();
+            if (electronics.getProductId().equals(productId)) {
+                found = true;
+                electronicsIterator.remove();
+                System.out.println("\nRemoved electronic item");
                 break;
             }
         }
-        for(Clothing clothing : getClothList()){
-            if (clothing.getProductId()==(productId)){
-                found=true;
-                getClothList().remove(clothing);
-                System.out.printf("\nremoved clothing item");
-                //System.out.println("free slots remaining "+freeSlots);
+
+        // Using Iterator for safe removal
+        Iterator<Clothing> clothingIterator = getClothList().iterator();
+        while (clothingIterator.hasNext()) {
+            Clothing clothing = clothingIterator.next();
+            if (clothing.getProductId().equals(productId)) {
+                found = true;
+                clothingIterator.remove();
+                System.out.println("\nRemoved clothing item");
                 break;
             }
         }
-        if(!found) {
+
+        if (!found) {
             System.out.println("\nInvalid product id");
         }
     }
+
 
 }

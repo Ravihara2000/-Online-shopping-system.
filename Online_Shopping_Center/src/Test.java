@@ -16,7 +16,7 @@ public class Test {
         //manager.saveDataToFile("shopping_data.txt");
 /*        manager.loadDataFromFile("shopping_data.txt");
         manager.printProduct();*/
-        ShoppingGUI g1 = new ShoppingGUI((WestminsterShoppingManager) manager);
+        //ShoppingGUI g1 = new ShoppingGUI((WestminsterShoppingManager) manager);
         //TestGui g2 = new TestGui((WestminsterShoppingManager)manager);
         //desc d1 = new desc((WestminsterShoppingManager) manager);
     }
