@@ -71,7 +71,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
 
 
 
-    public void addProduct(Products products) {
+/*    public void addProduct(Products products) {
         if (getClothList().size() + getElectList().size() > maxProducts) {
             System.out.println("Maximum limit reached");
         } else {
@@ -85,7 +85,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
                 System.out.println("Unknown product type");
             }
         }
-    }
+    }*/
 
     public void printProduct(){
 
@@ -159,6 +159,46 @@ public class WestminsterShoppingManager implements ShoppingManager {
             System.out.println("\nInvalid product id");
         }
     }
+
+    public void addProduct(Products products) {
+        String productId = products.getProductId();
+
+        // Check if the product ID already exists in either list
+        if (productExists(productId)) {
+            System.out.println("Product ID already exists. Cannot add duplicate.");
+            return;
+        }
+
+        if (getClothList().size() + getElectList().size() >= maxProducts) {
+            System.out.println("Maximum limit reached");
+        } else {
+            if (products instanceof Electronics) {
+                getElectList().add((Electronics) products);
+                System.out.println("Electronics item added");
+            } else if (products instanceof Clothing) {
+                getClothList().add((Clothing) products);
+                System.out.println("Clothing item added");
+            } else {
+                System.out.println("Unknown product type");
+            }
+        }
+    }
+
+    // Helper method to check if a product ID exists in either list
+    private boolean productExists(String productId) {
+        for (Electronics electronics : getElectList()) {
+            if (electronics.getProductId().equals(productId)) {
+                return true;
+            }
+        }
+        for (Clothing clothing : getClothList()) {
+            if (clothing.getProductId().equals(productId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 }

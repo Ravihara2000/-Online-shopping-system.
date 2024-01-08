@@ -115,24 +115,14 @@ public class ConsoleMenu {
     }
 
     public static void deleteProduct(){
-        System.out.println("what do you want to delete?");
-        System.out.println("1.Electronics\n2.Clothing");
+        //System.out.println("what do you want to delete?");
+        //System.out.println("1.Electronics\n2.Clothing");
         //Scanner sc = new Scanner(System.in);
-        int x= scn.nextInt();
-
-        if(x==1){
+        //int x= scn.nextInt();
             System.out.println("Enter product Id");
             String pId = scn.next();
-
             manager.deleteProduct(pId);
-        } else if (x==2) {
-            System.out.println("Enter product Id");
-            String pId = scn.next();
 
-            manager.deleteProduct(pId);
-        }else {
-            System.out.println("Invalid Input");
-        }
     }
 
 
