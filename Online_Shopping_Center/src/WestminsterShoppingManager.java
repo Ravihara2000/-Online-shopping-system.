@@ -37,7 +37,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
         }
     }
 
-    public void loadDataFromFile(String filename) {
+/*    public void loadDataFromFile(String filename) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             String currentCategory = null;
@@ -67,7 +67,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
         } catch (IOException e) {
             System.err.println("Error while loading data from file: " + e.getMessage());
         }
-    }
+    }*/
 
 
 
@@ -198,6 +198,78 @@ public class WestminsterShoppingManager implements ShoppingManager {
         }
         return false;
     }
+
+    public void loadDataFromFile(String filename) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            String currentCategory = null;
+            StringBuilder productData = new StringBuilder();
+
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("Electronics Data:")) {
+                    currentCategory = "Electronics";
+                    productData.setLength(0); // Clear the StringBuilder for new data
+                } else if (line.startsWith("Clothing Data:")) {
+                    currentCategory = "Clothing";
+                    productData.setLength(0); // Clear the StringBuilder for new data
+                } else if (currentCategory != null) {
+                    // Append the line to the product data
+                    productData.append(line).append("\n");
+
+                    // Check if the line ends with a '}' to determine if it's the end of product data
+                    if (line.endsWith("}")) {
+                        String productInfo = productData.toString().trim();
+                        if (currentCategory.equals("Electronics")) {
+                            Electronics electronics = Electronics.fromString(productInfo);
+                            if (electronics != null) {
+                                electList.add(electronics);
+                            }
+                        } else if (currentCategory.equals("Clothing")) {
+                            Clothing clothing = Clothing.fromString(productInfo);
+                            if (clothing != null) {
+                                clothList.add(clothing);
+                            }
+                        }
+                    }
+                }
+            }
+
+            System.out.println("Data loaded from " + filename);
+        } catch (IOException e) {
+            System.err.println("Error while loading data from file: " + e.getMessage());
+        }
+    }
+
+    public void saveData2() throws IOException {
+        File file = new File("newText.txt");
+        FileOutputStream fout = new FileOutputStream(file, true);
+        ObjectOutputStream objout = new ObjectOutputStream(fout);
+
+        Iterator it = electList.iterator();
+        while(it.hasNext()){
+            Electronics eleNew = (Electronics) it.next();
+            objout.writeObject(eleNew);
+            System.out.println("data saved successfully");
+        }
+    }
+
+    public void loadData2() throws IOException {
+        FileInputStream fin = new FileInputStream("newText.txt");
+        ObjectInputStream objin = new ObjectInputStream(fin);
+
+        while (true){
+            try{
+                Electronics electronics = (Electronics) objin.readObject();
+                electList.add(electronics);
+                System.out.println("Data loaded from text file");
+
+            } catch (IOException|ClassNotFoundException e) {
+                break;
+            }
+        }
+
+    }
+
 
 
 

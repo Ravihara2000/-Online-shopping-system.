@@ -1,4 +1,5 @@
-import java.io.IOException;
+import java.io.*;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class ConsoleMenu {
@@ -12,6 +13,7 @@ public class ConsoleMenu {
         menuloop:
         while (true){
             displayMenu();
+            //manager.loadDataFromFile("shopping_data.txt");
             int choice =scn.nextInt();
             //TODO: Validate the user input for integer
 
@@ -29,12 +31,14 @@ public class ConsoleMenu {
                     break;
                 case 4:
                     //manager.printStatistics();
-                    manager.saveDataToFile("shopping_data.txt");
+                    //manager.saveDataToFile("shopping_data.txt");
+                    manager.saveData2();
 
                     //System.out.println("data saved successfully");
                     break;
                 case 5:
-                    manager.loadDataFromFile("shopping_data.txt");
+                    //manager.loadDataFromFile("shopping_data.txt");
+                    manager.loadData2();
                     break;
                 case 6:
                     //ShoppingGUI g1 = new ShoppingGUI((WestminsterShoppingManager) manager);
@@ -122,6 +126,13 @@ public class ConsoleMenu {
             System.out.println("Enter product Id");
             String pId = scn.next();
             manager.deleteProduct(pId);
+
+    }
+
+    public void saveData2() throws IOException {
+
+
+        manager.saveData2();
 
     }
 
