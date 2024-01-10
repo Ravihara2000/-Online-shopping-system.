@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.InputMismatchException;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class ConsoleMenu {
@@ -9,20 +8,17 @@ public class ConsoleMenu {
 
     static ShoppingManager manager = new WestminsterShoppingManager();
     final static Scanner scn =new Scanner(System.in);
-    //static SkinConsultationManager manager = new WestminsterSkinConsultationManager();
+
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         menuloop:
         while (true){
             try {
                 displayMenu();
-                //manager.loadDataFromFile("shopping_data.txt");
                 int choice = scn.nextInt();
                 //TODO: Validate the user input for integer
 
                 switch (choice) {
                     case 1:
-                        //addProduct(pId, pName, pAmount, pPrice, pBrand, pWarranty, pSize, pColor);
-
                         addProduct();
                         break;
                     case 2:
@@ -32,18 +28,14 @@ public class ConsoleMenu {
                         manager.printProduct();
                         break;
                     case 4:
-                        //manager.printStatistics();
-                        //manager.saveDataToFile("shopping_data.txt");
-                        manager.saveData2();
+                        manager.saveData();
 
-                        //System.out.println("data saved successfully");
                         break;
                     case 5:
-                        //manager.loadDataFromFile("shopping_data.txt");
-                        manager.loadData2();
+                        manager.loadData();
                         break;
                     case 6:
-                        //ShoppingGUI g1 = new ShoppingGUI((WestminsterShoppingManager) manager);
+                        ShoppingGUI g1 = new ShoppingGUI((WestminsterShoppingManager) manager);
                         break;
                     case 7:
                         System.out.println("Thank you for using the system");
@@ -102,7 +94,7 @@ public class ConsoleMenu {
             int pAmount;
             do {
                 while (!scn.hasNextInt()) {
-                    System.out.println("Invalid input. Please enter a valid integer:");
+                    System.out.println("Invalid input. Please reenter number of products");
                     scn.next();  // Consume the invalid input
                 }
                 pAmount = scn.nextInt();
@@ -115,7 +107,7 @@ public class ConsoleMenu {
             int pPrice;
             do {
                 while (!scn.hasNextInt()) {
-                    System.out.println("Invalid input. Please enter a valid integer:");
+                    System.out.println("Invalid input. Please reenter product price");
                     scn.next();  // Consume the invalid input
                 }
                 pPrice = scn.nextInt();
@@ -138,7 +130,7 @@ public class ConsoleMenu {
                 int pWarranty;
                 do {
                     while (!scn.hasNextInt()) {
-                        System.out.println("Invalid input. Please enter a valid integer:");
+                        System.out.println("Invalid input. Please reenter product warranty period");
                         scn.next();  // Consume the invalid input
                     }
                     pWarranty = scn.nextInt();
@@ -186,22 +178,28 @@ public class ConsoleMenu {
     }
 
     public static void deleteProduct(){
-        //System.out.println("what do you want to delete?");
-        //System.out.println("1.Electronics\n2.Clothing");
-        //Scanner sc = new Scanner(System.in);
-        //int x= scn.nextInt();
-            System.out.println("Enter product Id");
-            String pId = scn.next();
-            manager.deleteProduct(pId);
+        System.out.println("Enter product ID to delete");
+        String pId;
+        boolean isValidId = false;
+
+        do {
+            pId = scn.next();
+
+            // Check if the ID is empty
+            if (pId.trim().isEmpty()) {
+                System.out.println("Product ID cannot be empty. Please enter again:");
+                continue; // Continue to the next iteration of the loop
+            }
+
+            // Perform any additional validation checks if necessary
+
+            isValidId = true; // Set the flag to true if a valid ID is entered
+
+        } while (!isValidId);
+
+        manager.deleteProduct(pId);
+
 
     }
-
-    public void saveData2() throws IOException {
-
-
-        manager.saveData2();
-
-    }
-
 
 }

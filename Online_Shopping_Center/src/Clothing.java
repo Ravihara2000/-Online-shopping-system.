@@ -18,9 +18,6 @@ public class Clothing extends Products{
         return new Clothing(size, color);
     }
 
-
-
-
     @Override
     public String toString() {
         return "Clothing{"+super.toString() +

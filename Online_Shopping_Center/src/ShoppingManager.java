@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public interface ShoppingManager {
@@ -7,12 +6,7 @@ public interface ShoppingManager {
     void printProduct();
     void deleteProduct(String productId);
 
-    //void saveDataToFile() ;
+    void saveData() throws IOException;
 
-    void saveDataToFile(String s);
-    void loadDataFromFile(String f);
-
-    void saveData2() throws IOException;
-
-    void loadData2() throws IOException;
+    void loadData() throws IOException;
 }

@@ -13,79 +13,6 @@ public class WestminsterShoppingManager implements ShoppingManager {
     public ArrayList<Clothing> getClothList() {
         return clothList;
     }
-    public void saveDataToFile(String filename) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            // Save Electronics data
-            writer.write("Electronics Data:");
-            writer.newLine();
-            for (Electronics electronics : electList) {
-                writer.write(electronics.toString()); // You should implement a toString method in Electronics
-                writer.newLine();
-            }
-
-            // Save Clothing data
-            writer.write("Clothing Data:");
-            writer.newLine();
-            for (Clothing clothing : clothList) {
-                writer.write(clothing.toString()); // You should implement a toString method in Clothing
-                writer.newLine();
-            }
-
-            System.out.println("Data saved to " + filename);
-        } catch (IOException e) {
-            System.err.println("Error while saving data to file: " + e.getMessage());
-        }
-    }
-
-/*    public void loadDataFromFile(String filename) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            String line;
-            String currentCategory = null;
-
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith("Electronics Data:")) {
-                    currentCategory = "Electronics";
-                } else if (line.startsWith("Clothing Data:")) {
-                    currentCategory = "Clothing";
-                } else if (currentCategory != null) {
-                    // Parse and create objects based on the category
-                    if (currentCategory.equals("Electronics")) {
-                        Electronics electronics = Electronics.fromString(line);
-                        if (electronics != null) {
-                            electList.add(electronics);
-                        }
-                    } else if (currentCategory.equals("Clothing")) {
-                        Clothing clothing = Clothing.fromString(line);
-                        if (clothing != null) {
-                            clothList.add(clothing);
-                        }
-                    }
-                }
-            }
-
-            System.out.println("Data loaded from " + filename);
-        } catch (IOException e) {
-            System.err.println("Error while loading data from file: " + e.getMessage());
-        }
-    }*/
-
-
-
-/*    public void addProduct(Products products) {
-        if (getClothList().size() + getElectList().size() > maxProducts) {
-            System.out.println("Maximum limit reached");
-        } else {
-            if (products instanceof Electronics) {
-                getElectList().add((Electronics) products);
-                System.out.println("Electronics item added");
-            } else if (products instanceof Clothing) {
-                getClothList().add((Clothing) products);
-                System.out.println("Clothing item added");
-            } else {
-                System.out.println("Unknown product type");
-            }
-        }
-    }*/
 
     public void printProduct(){
 
@@ -199,48 +126,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
         return false;
     }
 
-    public void loadDataFromFile(String filename) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            String line;
-            String currentCategory = null;
-            StringBuilder productData = new StringBuilder();
-
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith("Electronics Data:")) {
-                    currentCategory = "Electronics";
-                    productData.setLength(0); // Clear the StringBuilder for new data
-                } else if (line.startsWith("Clothing Data:")) {
-                    currentCategory = "Clothing";
-                    productData.setLength(0); // Clear the StringBuilder for new data
-                } else if (currentCategory != null) {
-                    // Append the line to the product data
-                    productData.append(line).append("\n");
-
-                    // Check if the line ends with a '}' to determine if it's the end of product data
-                    if (line.endsWith("}")) {
-                        String productInfo = productData.toString().trim();
-                        if (currentCategory.equals("Electronics")) {
-                            Electronics electronics = Electronics.fromString(productInfo);
-                            if (electronics != null) {
-                                electList.add(electronics);
-                            }
-                        } else if (currentCategory.equals("Clothing")) {
-                            Clothing clothing = Clothing.fromString(productInfo);
-                            if (clothing != null) {
-                                clothList.add(clothing);
-                            }
-                        }
-                    }
-                }
-            }
-
-            System.out.println("Data loaded from " + filename);
-        } catch (IOException e) {
-            System.err.println("Error while loading data from file: " + e.getMessage());
-        }
-    }
-
-    public void saveData2() throws IOException {
+    public void saveData() throws IOException {
         File file = new File("newText.txt");
         FileOutputStream fout = new FileOutputStream(file, true);
         ObjectOutputStream objout = new ObjectOutputStream(fout);
@@ -253,7 +139,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
         }
     }
 
-    public void loadData2() throws IOException {
+    public void loadData() throws IOException {
             boolean dataLoaded = false;  // Flag to track if any data was loaded from the file
 
             try (FileInputStream fin = new FileInputStream("newText.txt");
@@ -286,41 +172,5 @@ public class WestminsterShoppingManager implements ShoppingManager {
                 System.out.println("Text file is empty");
             }
 
-
-/*        boolean dataLoaded = false;  // Flag to track if any data was loaded from the file
-
-        try (FileInputStream fin = new FileInputStream("newText.txt");
-             ObjectInputStream objin = new ObjectInputStream(fin)) {
-
-            while (true) {
-                try {
-                    Electronics electronics = (Electronics) objin.readObject();
-                    electList.add(electronics);
-                    System.out.println("Data loaded from text file");
-                    dataLoaded = true;  // Set the flag to true when data is loaded
-
-                } catch (EOFException e) {
-                    // This exception will be caught when there are no more objects to read
-                    break;
-
-                } catch (ClassNotFoundException | IOException e) {
-                    e.printStackTrace();
-                    break;
-                }
-            }
-
-            // Check the flag and display a message if the file was empty
-            if (!dataLoaded) {
-                System.out.println("Text file is empty");
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
     }
-
-
-
-
 }
