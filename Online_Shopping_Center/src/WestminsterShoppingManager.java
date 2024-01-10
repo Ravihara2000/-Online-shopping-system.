@@ -254,19 +254,69 @@ public class WestminsterShoppingManager implements ShoppingManager {
     }
 
     public void loadData2() throws IOException {
-        FileInputStream fin = new FileInputStream("newText.txt");
-        ObjectInputStream objin = new ObjectInputStream(fin);
+            boolean dataLoaded = false;  // Flag to track if any data was loaded from the file
 
-        while (true){
-            try{
-                Electronics electronics = (Electronics) objin.readObject();
-                electList.add(electronics);
-                System.out.println("Data loaded from text file");
+            try (FileInputStream fin = new FileInputStream("newText.txt");
+                 ObjectInputStream objin = new ObjectInputStream(fin)) {
 
-            } catch (IOException|ClassNotFoundException e) {
-                break;
+                while (true) {
+                    try {
+                        Electronics electronics = (Electronics) objin.readObject();
+                        electList.add(electronics);
+                        System.out.println("Data loaded from text file");
+                        dataLoaded = true;  // Set the flag to true when data is loaded
+
+                    } catch (EOFException e) {
+                        // This exception will be caught when there are no more objects to read
+                        break;
+
+                    } catch (ClassNotFoundException | IOException e) {
+                        e.printStackTrace();
+                        break;
+                    }
+                }
+
+            } catch (IOException e) {
+                // Handle other IO exceptions
+                e.printStackTrace();
             }
-        }
+
+            // Check the flag and display a message if the file was empty
+            if (!dataLoaded) {
+                System.out.println("Text file is empty");
+            }
+
+
+/*        boolean dataLoaded = false;  // Flag to track if any data was loaded from the file
+
+        try (FileInputStream fin = new FileInputStream("newText.txt");
+             ObjectInputStream objin = new ObjectInputStream(fin)) {
+
+            while (true) {
+                try {
+                    Electronics electronics = (Electronics) objin.readObject();
+                    electList.add(electronics);
+                    System.out.println("Data loaded from text file");
+                    dataLoaded = true;  // Set the flag to true when data is loaded
+
+                } catch (EOFException e) {
+                    // This exception will be caught when there are no more objects to read
+                    break;
+
+                } catch (ClassNotFoundException | IOException e) {
+                    e.printStackTrace();
+                    break;
+                }
+            }
+
+            // Check the flag and display a message if the file was empty
+            if (!dataLoaded) {
+                System.out.println("Text file is empty");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
 
     }
 

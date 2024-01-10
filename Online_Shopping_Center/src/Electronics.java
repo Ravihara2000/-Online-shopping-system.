@@ -4,9 +4,14 @@ public class Electronics extends Products implements Serializable {
     private String brand;
     private int warrantyPeriod;
 
-    public Electronics(String brand, int warrantyPeriod) {
+    private String name;//for demo
+    public Electronics(String brand, int warrantyPeriod, String name) {
         this.brand = brand;
         this.warrantyPeriod = warrantyPeriod;
+        this.name = name;
+    }
+
+    public Electronics(String brand, int warrantyPeriod) {
     }
 
     public String getBrand() {
@@ -41,6 +46,7 @@ public class Electronics extends Products implements Serializable {
         this.brand = brand;
         this.warrantyPeriod = warrantyPeriod;
     }
+    //gui
     public static Electronics fromString(String data) {
         String[] parts = data.split(",");
         if (parts.length != 2) {
@@ -57,6 +63,17 @@ public class Electronics extends Products implements Serializable {
     }
     public String getInfo() {
         return toStringGui();
+    }
+
+
+    // Getter for name
+    public String getName() {
+        return name;
+    }
+
+    // Setter for name
+    public void setName(String name) {
+        this.name = name;
     }
 
 }
