@@ -9,31 +9,37 @@ import java.util.Comparator;
 import java.awt.Color;
 
 public class ShoppingGUI extends JFrame {
+
     private DefaultTableModel tableModel;
     private JPanel productDetailsPanel;
+
     public ShoppingGUI(WestminsterShoppingManager manager) {
-        JFrame f1 = new JFrame();
-        f1.setSize(700, 400);
-        f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f1.setLayout(new BorderLayout());
-        f1.setTitle("Westminster Shopping Center");
-        f1.getContentPane().setBackground(new Color(255,100,55));
-        f1.setLocationRelativeTo(null); // GUI comes to the middle of the screen
+        setSize(1000, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+        setTitle("Westminster Shopping Center");
+        setLocationRelativeTo(null);
 
         JLabel titleLabel = new JLabel("Westminster Shopping Center");
         titleLabel.setFont(new Font("Calibre", Font.BOLD, 29));
         JPanel titlePane = new JPanel(new FlowLayout(FlowLayout.CENTER));
         titlePane.add(titleLabel);
-        f1.add("North", titlePane);
+        add("North", titlePane);
 
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        // Button Panel
+        JPanel btnPanel = new JPanel();
 
-        // Create an array of items for the dropdown list
+        JButton sortBtn = new JButton("Sort");
+        btnPanel.add(sortBtn);
+
+        JButton addCart = new JButton("Add Cart");
+        btnPanel.add(addCart);
+
+        JLabel ddText = new JLabel("Select product category:");
+        btnPanel.add(ddText);
+
         String[] items = {"All", "Electronics", "Clothes"};
-
-        // Create a JComboBox with the array of items
         JComboBox<String> dropdown = new JComboBox<>(items);
-        // Add an ActionListener to the JComboBox
         dropdown.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -42,89 +48,62 @@ public class ShoppingGUI extends JFrame {
             }
         });
 
-        // Create a JLabel with the desired text
-        JLabel label = new JLabel("Select product category:");
-        label.setFont(new Font("Calibre", Font.PLAIN, 16));
-
-        JButton sortBtn = new JButton("Sort List");
-        sortBtn.setBounds(130,50,50,50);
-        panel.add(sortBtn);
-
         sortBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sortTable();
             }
         });
+        btnPanel.add(dropdown);
 
-        JButton cartBtn = new JButton("Shopping Cart");
-        cartBtn.setBounds(130,50,50,50);
-        panel.add(cartBtn);
-        //f1.add("South",titlePane);
+        add(btnPanel, BorderLayout.NORTH);
 
-        // Add the JLabel and JComboBox to the panel
-        panel.add(label);
-        panel.add(dropdown);
-
-        // Add the panel to the frame's center
-        f1.add("Center", panel);
-
-
-        String[] columnNames = {"Product ID", "Name", "Category", "Price","Number of Items", "Info"};
-// Remove the DefaultTableModel type declaration before tableModel
+        // Table Panel
+        String[] columnNames = {"Product ID", "Name", "Category", "Price", "Number of Items", "Info"};
         tableModel = new DefaultTableModel(columnNames, 0);
         JTable productListTable = new JTable(tableModel);
 
-        // Create a panel for product details
-        productDetailsPanel = new JPanel();
-        productDetailsPanel.setLayout(new BoxLayout(productDetailsPanel, BoxLayout.Y_AXIS));
-        f1.add("Center", productDetailsPanel);
-
-        // Add a ListSelectionListener to the table
-        productListTable.getSelectionModel().addListSelectionListener(e -> {
-            int selectedRow = productListTable.getSelectedRow();
-            if (selectedRow >= 0) {
-                // Get the selected product details
-                String productId = tableModel.getValueAt(selectedRow, 0).toString();
-                String productName = tableModel.getValueAt(selectedRow, 1).toString();
-                String category = tableModel.getValueAt(selectedRow, 2).toString();
-                String price = tableModel.getValueAt(selectedRow, 3).toString();
-                String numOfItems = tableModel.getValueAt(selectedRow, 4).toString();
-                String info = tableModel.getValueAt(selectedRow, 5).toString();
-
-                // Display the product details in the details panel
-                displayProductDetails(productId, productName, category, price, numOfItems, info);
-            }
-        });
-
-        JButton addItemBtn = new JButton("Add to Cart");
-        cartBtn.setBounds(130,70,50,50);
-        f1.add(cartBtn);
-
-
-        // Populate the table with data from the ArrayList
         ArrayList<Clothing> clothList = manager.getClothList();
         for (Clothing clothing : clothList) {
-            Object[] rowData = {clothing.getProductId(), clothing.getProductName(),clothing.getCategory(), clothing.getPrice(),clothing.getNumOfItems(),clothing.getInfo()};
+            Object[] rowData = {clothing.getProductId(), clothing.getProductName(), clothing.getCategory(), clothing.getPrice(), clothing.getNumOfItems(), clothing.getInfo()};
             tableModel.addRow(rowData);
         }
+
         ArrayList<Electronics> electList = manager.getElectList();
         for (Electronics electronics : electList) {
-            Object[] rowData = {electronics.getProductId(), electronics.getProductName(),electronics.getCategory(), electronics.getPrice(),electronics.getNumOfItems(),electronics.getInfo()};
+            Object[] rowData = {electronics.getProductId(), electronics.getProductName(), electronics.getCategory(), electronics.getPrice(), electronics.getNumOfItems(), electronics.getInfo()};
             tableModel.addRow(rowData);
         }
-        productListTable.setDefaultEditor(Object.class, null); // get an uneditable table
+
+        productListTable.setDefaultEditor(Object.class, null);
         JScrollPane pane = new JScrollPane(productListTable);
-        pane.setPreferredSize(new Dimension(300, 150));
-        f1.add("South",pane);
+        add(pane, BorderLayout.CENTER);
 
 
 
-        f1.setVisible(true);
+        setVisible(true);
     }
+    // Method to populate the table with data from the ArrayLists
+    private void populateTable(ArrayList<Clothing> clothList, ArrayList<Electronics> electList, DefaultTableModel tableModel) {
+        for (Clothing clothing : clothList) {
+            Object[] rowData = {clothing.getProductId(), clothing.getProductName(), clothing.getCategory(), clothing.getPrice(),clothing.getNumOfItems(), clothing.getInfo()};
+            if (clothing.getNumOfItems() < 3) {
+                // Set the background color of the entire row to red
+                Arrays.fill(rowData, Color.RED);
+            }
+            tableModel.addRow(rowData);
 
-    // Method to sort the table alphabetically based on product name
 
+        }
+        for (Electronics electronics : electList) {
+            Object[] rowData = {electronics.getProductId(), electronics.getProductName(), electronics.getCategory(), electronics.getPrice(),electronics.getNumOfItems(), electronics.getInfo()};
+            if (electronics.getNumOfItems() < 3) {
+                // Set the background color of the entire row to red
+                Arrays.fill(rowData, Color.RED);
+            }
+            tableModel.addRow(rowData);
+        }
+    }
     // Method to update the table based on the selected category
     private void updateTable(String selectedCategory, DefaultTableModel tableModel, WestminsterShoppingManager manager) {
         // Check if tableModel is null, and initialize it if needed
@@ -145,23 +124,6 @@ public class ShoppingGUI extends JFrame {
         }
     }
 
-    // Method to populate the table with data from the ArrayLists
-    private void populateTable(ArrayList<Clothing> clothList, ArrayList<Electronics> electList, DefaultTableModel tableModel) {
-        for (Clothing clothing : clothList) {
-            Object[] rowData = {clothing.getProductId(), clothing.getProductName(), clothing.getCategory(), clothing.getPrice(),clothing.getNumOfItems(), clothing.getInfo()};
-            if (clothing.getNumOfItems() < 3) {
-                // Set the background color of the entire row to red
-                Arrays.fill(rowData, Color.RED);
-            }
-            tableModel.addRow(rowData);
-
-
-        }
-        for (Electronics electronics : electList) {
-            Object[] rowData = {electronics.getProductId(), electronics.getProductName(), electronics.getCategory(), electronics.getPrice(),electronics.getNumOfItems(), electronics.getInfo()};
-            tableModel.addRow(rowData);
-        }
-    }
     private void sortTable() {
         ArrayList<Object[]> data = new ArrayList<>();
         for (int i = 0; i < tableModel.getRowCount(); i++) {
@@ -179,7 +141,6 @@ public class ShoppingGUI extends JFrame {
             tableModel.addRow(rowData);
         }
     }
-    // Add a method to display product details in the details panel
     private void displayProductDetails(String productId, String productName, String category, String price, String numOfItems, String info) {
         // Clear the existing content in the details panel
         productDetailsPanel.removeAll();
@@ -206,4 +167,5 @@ public class ShoppingGUI extends JFrame {
 
 
     }
+
 }

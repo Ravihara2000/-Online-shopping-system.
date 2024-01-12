@@ -28,24 +28,13 @@ public abstract class Products implements Serializable {
         return productName;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
 
     public int getNumOfItems() {
         return numOfItems;
     }
 
-    public void setNumOfItems(int numOfItems) {
-        this.numOfItems = numOfItems;
-    }
-
     public int getPrice() {
         return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public Products() {

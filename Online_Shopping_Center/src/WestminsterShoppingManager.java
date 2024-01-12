@@ -28,6 +28,8 @@ public class WestminsterShoppingManager implements ShoppingManager {
                 }
             });
 
+
+
             Collections.sort(clothList, new Comparator<Clothing>() {
                 @Override
                 public int compare(Clothing c1, Clothing c2) {
@@ -112,7 +114,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
     }
 
     // Helper method to check if a product ID exists in either list
-    private boolean productExists(String productId) {
+    private boolean  productExists(String productId) {
         for (Electronics electronics : getElectList()) {
             if (electronics.getProductId().equals(productId)) {
                 return true;

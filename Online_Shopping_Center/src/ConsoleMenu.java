@@ -4,8 +4,6 @@ import java.util.Scanner;
 
 public class ConsoleMenu {
 
-    private WestminsterShoppingManager shoppingManager;
-
     static ShoppingManager manager = new WestminsterShoppingManager();
     final static Scanner scn =new Scanner(System.in);
 
@@ -55,19 +53,19 @@ public class ConsoleMenu {
         System.out.println("\n ----WELCOME TO WESTMINSTER ONLINE SHOPPING  CENTER-----");
         System.out.println("1: Add a new product");
         System.out.println("2: Delete a product");
-        System.out.println("3: Display all products");//alphabetically according to the
+        System.out.println("3: Display all products");
         System.out.println("4: Save Data");
         System.out.println("5: Load Data");
         System.out.println("6: Display GUI");
         System.out.println("7: Quite application");
     }
 
+    //add product method
     public static void addProduct(){
 
         try{
         System.out.println("what do you want to add?");
         System.out.println("1.Electronics\n2.Clothing");
-        //Scanner sc = new Scanner(System.in);
         String x= scn.next();
 
         if(x.equals("1")||x.equals("2")) {
@@ -131,7 +129,7 @@ public class ConsoleMenu {
                 do {
                     while (!scn.hasNextInt()) {
                         System.out.println("Invalid input. Please reenter product warranty period");
-                        scn.next();  // Consume the invalid input
+                        scn.next();
                     }
                     pWarranty = scn.nextInt();
                     if (pWarranty <= 0) {
@@ -165,18 +163,14 @@ public class ConsoleMenu {
                 manager.addProduct(clothing);
             }
 
-
         }else {
             System.out.println("Invalid input");
         }
-
-
-
         }catch (Exception e){
             System.out.println(e);
         }
     }
-
+//delete product id
     public static void deleteProduct(){
         System.out.println("Enter product ID to delete");
         String pId;
@@ -191,7 +185,6 @@ public class ConsoleMenu {
                 continue; // Continue to the next iteration of the loop
             }
 
-            // Perform any additional validation checks if necessary
 
             isValidId = true; // Set the flag to true if a valid ID is entered
 
