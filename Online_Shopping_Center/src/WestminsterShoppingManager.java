@@ -139,40 +139,59 @@ public class WestminsterShoppingManager implements ShoppingManager {
             objout.writeObject(eleNew);
             System.out.println("data saved successfully");
         }
+
+        Iterator itc = clothList.iterator();
+        while(itc.hasNext()){
+            Clothing cloNew = (Clothing) itc.next();
+            objout.writeObject(cloNew);
+            System.out.println("clothing data saved successfully");
+        }
     }
 
-    public void loadData() throws IOException {
-            boolean dataLoaded = false;  // Flag to track if any data was loaded from the file
 
-            try (FileInputStream fin = new FileInputStream("newText.txt");
-                 ObjectInputStream objin = new ObjectInputStream(fin)) {
+   public void loadData() throws IOException {
+       boolean dataLoaded = false;  // Flag to track if any data was loaded from the file
 
-                while (true) {
-                    try {
-                        Electronics electronics = (Electronics) objin.readObject();
-                        electList.add(electronics);
-                        System.out.println("Data loaded from text file");
-                        dataLoaded = true;  // Set the flag to true when data is loaded
+       try (FileInputStream fin = new FileInputStream("newText.txt");
+            ObjectInputStream objin = new ObjectInputStream(fin)) {
 
-                    } catch (EOFException e) {
-                        // This exception will be caught when there are no more objects to read
-                        break;
+           while (true) {
+               try {
+                   Object obj = objin.readObject();
 
-                    } catch (ClassNotFoundException | IOException e) {
-                        e.printStackTrace();
-                        break;
-                    }
-                }
+                   if (obj instanceof Electronics) {
+                       Electronics electronics = (Electronics) obj;
+                       electList.add(electronics);
+                       System.out.println("Electronics data loaded from text file");
+                       dataLoaded = true;
+                   } else if (obj instanceof Clothing) {
+                       Clothing clothing = (Clothing) obj;
+                       clothList.add(clothing);
+                       System.out.println("Clothing data loaded from text file");
+                       dataLoaded = true;
+                   }
 
-            } catch (IOException e) {
-                // Handle other IO exceptions
-                e.printStackTrace();
-            }
+               } catch (EOFException e) {
+                   // This exception will be caught when there are no more objects to read
+                   break;
 
-            // Check the flag and display a message if the file was empty
-            if (!dataLoaded) {
-                System.out.println("Text file is empty");
-            }
+               } catch (ClassNotFoundException | IOException e) {
+                   e.printStackTrace();
+                   break;
+               }
+           }
 
-    }
+       } catch (IOException e) {
+           // Handle other IO exceptions
+           e.printStackTrace();
+       }
+
+       // Check the flag and display a message if the file was empty
+       if (!dataLoaded) {
+           System.out.println("Text file is empty");
+       }
+   }
+
+
+
 }
